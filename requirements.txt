@@ -1,3 +1,4 @@
 pytest==2.5.2
 coverage==3.7.1
+schematics==0.9-4
 factory-boy==2.3.1
