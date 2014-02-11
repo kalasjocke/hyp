@@ -1,1 +1,1 @@
-from factories import post_factory
+from factories import post_factory, post

@@ -11,12 +11,19 @@ class Post(Model):
     def __init__(self, id=None, title=None):
         self.id = id
         self.title = title
+
+
 @pytest.fixture
 def post_factory():
     class Factory(factory.Factory):
         FACTORY_FOR = Post
 
-        id = factory.Sequence(lambda n: n)
-        title = 'My post'
+        id = 1
+        title = 'My title'
 
     return Factory
+
+
+@pytest.fixture
+def post(post_factory):
+    return post_factory()
