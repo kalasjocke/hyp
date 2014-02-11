@@ -12,3 +12,4 @@ class PostSerializer(Model):
 
 class PostResponder(Responder):
     TYPE = 'post'
+    SERIALIZER = PostSerializer

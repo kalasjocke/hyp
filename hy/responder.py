@@ -6,14 +6,8 @@ from hy.adapters.schematics import SchematicsSerializerAdapter
 
 
 class Responder(object):
-    def __init__(self, serializer):
-        self.serializer = serializer
-
-    @classmethod
-    def schematics(cls, serializer_class):
-        serializer = SchematicsSerializerAdapter(serializer_class)
-
-        return cls(serializer)
+    def __init__(self):
+        self.serializer = SchematicsSerializerAdapter(self.SERIALIZER)
 
     def build_meta(self, document, meta):
         if meta is not None:
