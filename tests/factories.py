@@ -19,6 +19,12 @@ class Comment(Model):
         self.content = content
 
 
+class Person(Model):
+    def __init__(self, id=None, name=None):
+        self.id = id
+        self.name = name
+
+
 @pytest.fixture
 def post_factory():
     class Factory(factory.Factory):
@@ -49,3 +55,19 @@ def comment_factory():
 @pytest.fixture
 def comment(post_factory):
     return comment_factory()
+
+
+@pytest.fixture
+def person_factory():
+    class Factory(factory.Factory):
+        FACTORY_FOR = Person
+
+        id = 1
+        name = 'Joe'
+
+    return Factory
+
+
+@pytest.fixture
+def person(person_factory):
+    return person_factory()

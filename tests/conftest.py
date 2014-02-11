@@ -1,7 +1,10 @@
 import os
 import sys
 
-from factories import post, post_factory, comment, comment_factory
+from factories import (
+    post, post_factory, comment,
+    comment_factory, person, person_factory,
+)
 
 root = os.path.join(os.path.dirname(__file__))
 package = os.path.join(root, '..')

@@ -9,6 +9,11 @@ class CommentSerializer(Model):
     content = StringType()
 
 
+class PersonSerializer(Model):
+    id = IntType()
+    name = StringType()
+
+
 class PostSerializer(Model):
     id = IntType()
     title = StringType()
@@ -19,6 +24,11 @@ class CommentResponder(Responder):
     SERIALIZER = CommentSerializer
 
 
+class PersonResponder(Responder):
+    TYPE = 'person'
+    SERIALIZER = PersonSerializer
+
+
 class PostResponder(Responder):
     TYPE = 'post'
     SERIALIZER = PostSerializer
@@ -26,5 +36,9 @@ class PostResponder(Responder):
         'comments': {
             'responder': CommentResponder(),
             'href': 'http://example.com/comments/{posts.comments}',
-        }
+        },
+        'author': {
+            'responder': PersonResponder(),
+            'href': 'http://example.com/people/{posts.author}',
+        },
     }
