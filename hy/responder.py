@@ -55,16 +55,30 @@ class Responder(object):
 
         return rv
 
+    def build_linked(self, linked):
+        if linked is None:
+            return
+
         rv = {}
 
-    def respond(self, instances, meta=None, links=None):
+        for key, instances in linked.iteritems():
+            responder = self.LINKS[key]['responder']
+            rv[key] = responder.build_resources(instances)
+
+        return rv
+
+    def respond(self, instances, meta=None, links=None, linked=None):
         if not hasattr(instances, "__iter__"):
             instances = [instances]
+
+        if linked is not None:
+            links = linked.keys()
 
         document = {}
 
         document['meta'] = self.build_meta(meta)
         document['links'] = self.build_links(links)
+        document['linked'] = self.build_linked(linked)
         document[self.root] = self.build_resources(instances, links)
 
         [document.pop(key) for key in document.keys() if document[key] is None]
