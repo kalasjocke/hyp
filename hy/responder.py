@@ -10,12 +10,14 @@ class Responder(object):
         self.root = self.pluralized_type()
         self.serializer = SchematicsSerializerAdapter(self.SERIALIZER)
 
-    def build_meta(self, document, meta):
-        if meta is not None:
-            document['meta'] = meta
+    def build_meta(self, meta):
+        if meta is None:
+            return
 
-    def build_resources(self, document, instances, links):
-        resources = []
+        return meta
+
+    def build_resources(self, instances, links=None):
+        rv = []
 
         for instance in instances:
             resource = self.serializer.to_primitive(instance)
@@ -33,15 +35,15 @@ class Responder(object):
 
                 resource['links'] = resource_links
 
-            resources.append(resource)
+            rv.append(resource)
 
-        document[self.root] = resources
+        return rv
 
-    def build_root_links(self, document, links):
+    def build_links(self, links):
         if links is None:
             return
 
-        root_links = {}
+        rv = {}
 
         for link in links:
             key = "%s.%s" % (self.pluralized_type(), link)
@@ -49,9 +51,11 @@ class Responder(object):
                 'type': self.LINKS[link]['responder'].pluralized_type(),
                 'href': self.LINKS[link]['href'],
             }
-            root_links[key] = value
+            rv[key] = value
 
-        document['links'] = root_links
+        return rv
+
+        rv = {}
 
     def respond(self, instances, meta=None, links=None):
         if not hasattr(instances, "__iter__"):
@@ -59,9 +63,11 @@ class Responder(object):
 
         document = {}
 
-        self.build_meta(document, meta)
-        self.build_resources(document, instances, links)
-        self.build_root_links(document, links)
+        document['meta'] = self.build_meta(meta)
+        document['links'] = self.build_links(links)
+        document[self.root] = self.build_resources(instances, links)
+
+        [document.pop(key) for key in document.keys() if document[key] is None]
 
         return json.dumps(document)
 
