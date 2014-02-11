@@ -1,4 +1,4 @@
-hy
+Hy
 ==
 JSON-API responses in Python.
 
