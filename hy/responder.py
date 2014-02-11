@@ -16,29 +16,6 @@ class Responder(object):
 
         return meta
 
-    def build_resources(self, instances, links=None):
-        rv = []
-
-        for instance in instances:
-            resource = self.serializer.to_primitive(instance)
-
-            if links is not None:
-                resource_links = {}
-
-                for link in links:
-                    # TODO Should be able to pick from where to get the related instances
-                    related = getattr(instance, link)
-                    if hasattr(related, "__iter__"):
-                        resource_links[link] = [r.id for r in related]
-                    else:
-                        resource_links[link] = related.id
-
-                resource['links'] = resource_links
-
-            rv.append(resource)
-
-        return rv
-
     def build_links(self, links):
         if links is None:
             return
@@ -64,6 +41,29 @@ class Responder(object):
         for key, instances in linked.iteritems():
             responder = self.LINKS[key]['responder']
             rv[key] = responder.build_resources(instances)
+
+        return rv
+
+    def build_resources(self, instances, links=None):
+        rv = []
+
+        for instance in instances:
+            resource = self.serializer.to_primitive(instance)
+
+            if links is not None:
+                resource_links = {}
+
+                for link in links:
+                    # TODO Should be able to pick from where to get the related instances
+                    related = getattr(instance, link)
+                    if hasattr(related, "__iter__"):
+                        resource_links[link] = [r.id for r in related]
+                    else:
+                        resource_links[link] = related.id
+
+                resource['links'] = resource_links
+
+            rv.append(resource)
 
         return rv
 
