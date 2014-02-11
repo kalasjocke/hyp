@@ -1,11 +1,20 @@
 import json
 
 from inflection import pluralize
-from schematics.models import Model
-from schematics.transforms import to_primitive
+
+from hy.adapters.schematics import SchematicsSerializerAdapter
 
 
-class Serializer(Model):
+class Responder(object):
+    def __init__(self, serializer):
+        self.serializer = serializer
+
+    @classmethod
+    def schematics(cls, serializer_class):
+        serializer = SchematicsSerializerAdapter(serializer_class)
+
+        return cls(serializer)
+
     def build_meta(self, document, meta):
         if meta is not None:
             document['meta'] = meta
@@ -15,11 +24,11 @@ class Serializer(Model):
             instances = [instances]
 
         key = pluralize(self.TYPE)
-        value = [to_primitive(self, instance) for instance in instances]
+        value = [self.serializer.to_primitive(instance) for instance in instances]
 
         document[key] = value
 
-    def to_json(self, instances, meta=None):
+    def respond(self, instances, meta=None):
         document = {}
 
         self.build_meta(document, meta)

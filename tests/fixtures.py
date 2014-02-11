@@ -1,10 +1,14 @@
+from schematics.models import Model
 from schematics.types import IntType, StringType
 
-from hy.serializer import Serializer
+from hy.responder import Responder
 
 
-class PostSerializer(Serializer):
-    TYPE = 'post'
 
+class PostSerializer(Model):
     id = IntType()
     title = StringType()
+
+
+class PostResponder(Responder):
+    TYPE = 'post'
