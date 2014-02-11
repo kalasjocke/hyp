@@ -22,4 +22,9 @@ class CommentResponder(Responder):
 class PostResponder(Responder):
     TYPE = 'post'
     SERIALIZER = PostSerializer
-    LINKS = {'comment': CommentResponder}
+    LINKS = {
+        'comments': {
+            'responder': CommentResponder(),
+            'href': 'http://example.com/comments/{posts.comments}',
+        }
+    }

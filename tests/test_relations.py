@@ -4,10 +4,12 @@ from fixtures import PostResponder
 
 
 def test_one_to_many(post, comment_factory):
-    comment = comment_factory(id=1, content='My comment')
-    another_comment = comment_factory(id=2, content='Another comment')
+    post.comments = [
+        comment_factory(id=1, content='My comment'),
+        comment_factory(id=2, content='Another comment'),
+    ]
 
-    data = PostResponder().respond(post, comments=[comment, another_comment])
+    data = PostResponder().respond(post, links=['comments'])
 
     assert json.loads(data) == {
         'posts': [
