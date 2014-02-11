@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name='Hy',
+    name='hy-py',
     version='0.0.1',
     packages=['hy'],
     license='MIT',
