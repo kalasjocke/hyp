@@ -13,6 +13,12 @@ class Post(Model):
         self.title = title
 
 
+class Comment(Model):
+    def __init__(self, id=None, content=None):
+        self.id = id
+        self.content = content
+
+
 @pytest.fixture
 def post_factory():
     class Factory(factory.Factory):
@@ -27,3 +33,19 @@ def post_factory():
 @pytest.fixture
 def post(post_factory):
     return post_factory()
+
+
+@pytest.fixture
+def comment_factory():
+    class Factory(factory.Factory):
+        FACTORY_FOR = Comment
+
+        id = 1
+        content = 'My content'
+
+    return Factory
+
+
+@pytest.fixture
+def comment(post_factory):
+    return comment_factory()
