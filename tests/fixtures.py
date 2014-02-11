@@ -4,7 +4,7 @@ from hy.serializer import Serializer
 
 
 class PostSerializer(Serializer):
-    KEY = 'posts'
+    TYPE = 'post'
 
     id = IntType()
     title = StringType()
