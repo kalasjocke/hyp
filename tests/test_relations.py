@@ -28,3 +28,27 @@ def test_one_to_many(post, comment_factory):
             }
         }
     }
+
+
+def test_one_to_one(post, person):
+    post.author = person
+
+    data = PostResponder().respond(post, links=['author'])
+
+    assert json.loads(data) == {
+        'posts': [
+            {
+                'id': 1,
+                'title': 'My title',
+                'links': {
+                    'author': 1,
+                }
+            },
+        ],
+        'links': {
+            'posts.author': {
+                'href': 'http://example.com/people/{posts.author}',
+                'type': 'people',
+            }
+        }
+    }

@@ -25,8 +25,11 @@ class Responder(object):
 
                 for link in links:
                     # TODO Should be able to pick from where to get the related instances
-                    related_instances = getattr(instance, link)
-                    resource_links[link] = [ri.id for ri in related_instances]
+                    related = getattr(instance, link)
+                    if hasattr(related, "__iter__"):
+                        resource_links[link] = [r.id for r in related]
+                    else:
+                        resource_links[link] = related.id
 
                 resource['links'] = resource_links
 
