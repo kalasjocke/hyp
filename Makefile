@@ -6,3 +6,6 @@ clean: clean-pyc
 test: clean
 	coverage run --source hy -m py.test tests/ -s
 	coverage report -m
+
+release:
+	python setup.py sdist upload
