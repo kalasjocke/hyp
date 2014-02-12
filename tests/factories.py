@@ -2,24 +2,19 @@ import pytest
 import factory
 
 
-class Model(object):
-    def __getitem__(self, key):
-        return getattr(self, key)
-
-
-class Post(Model):
+class Post(object):
     def __init__(self, id=None, title=None):
         self.id = id
         self.title = title
 
 
-class Comment(Model):
+class Comment(object):
     def __init__(self, id=None, content=None):
         self.id = id
         self.content = content
 
 
-class Person(Model):
+class Person(object):
     def __init__(self, id=None, name=None):
         self.id = id
         self.name = name

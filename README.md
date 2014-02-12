@@ -8,8 +8,6 @@ Hy is a library implementing the _must_ parts of the [JSON-API](http://jsonapi.o
 
 It is built on top of [Schematics](https://schematics.readthedocs.org/en/latest/) in the sense that Schematics is used for data serialization and that Hy handles the rest. To add support for other data serialization libraries such as [Colander](http://docs.pylonsproject.org/projects/colander/en/latest/) should be trivial though.
 
-The only requirements that Hy has on your models is that it should conform to the Python `dict` interface.
-
 Tutorial
 --------
 
@@ -66,7 +64,7 @@ class PostResponder(Responder):
     }
 ```
 
-Finally we can use our responders for creating responses conforming to the JSON-API specification. The only requirement for our models is that they respond to the standard Python `dict` interface. These responses goes perfectly into any Flask application out there:
+Finally we can use our responders for creating responses. These responses goes perfectly into any Flask application out there:
 
 ```python
 post = {
