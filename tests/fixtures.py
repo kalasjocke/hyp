@@ -1,7 +1,7 @@
 from schematics.models import Model
 from schematics.types import IntType, StringType
 
-from hy.responder import Responder
+from hyp.responder import Responder
 
 
 class CommentSerializer(Model):

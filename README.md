@@ -1,12 +1,12 @@
-Hy
-==
+Hyp
+===
 JSON-API responses in Python.
 
 About
 -----
-Hy is a library implementing the _must_ parts of the [JSON-API](http://jsonapi.org) response specification. This means that you can use Hy to serialize your models into responses that contain links and linked compound documents. It works really good in combination with some micro web framework of choice, preferably [Flask](http://flask.pocoo.org).
+Hyp is a library implementing the _must_ parts of the [JSON-API](http://jsonapi.org) response specification. This means that you can use Hyp to serialize your models into responses that contain links and linked compound documents. It works really good in combination with some micro web framework of choice, preferably [Flask](http://flask.pocoo.org).
 
-It is built on top of [Schematics](https://schematics.readthedocs.org/en/latest/) in the sense that Schematics is used for data serialization and that Hy handles the rest. To add support for other data serialization libraries such as [Colander](http://docs.pylonsproject.org/projects/colander/en/latest/) should be trivial though.
+It is built on top of [Schematics](https://schematics.readthedocs.org/en/latest/) in the sense that Schematics is used for data serialization and that Hyp handles the rest. To add support for other data serialization libraries such as [Colander](http://docs.pylonsproject.org/projects/colander/en/latest/) should be trivial though.
 
 Tutorial
 --------
@@ -33,10 +33,10 @@ class PostSerializer(Model):
     title = StringType()
 ```
 
-We can then create our own responders using the `hy.Responders` class:
+We can then create our own responders using the `hyp.Responders` class:
 
 ```python
-from hy.responder import Responder
+from hyp.responder import Responder
 
 
 class CommentResponder(Responder):

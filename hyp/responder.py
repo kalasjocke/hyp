@@ -2,7 +2,7 @@ import json
 
 from inflection import pluralize
 
-from hy.adapters.schematics import SchematicsSerializerAdapter
+from hyp.adapters.schematics import SchematicsSerializerAdapter
 
 
 class Responder(object):
