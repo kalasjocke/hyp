@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='hy-py',
-    version='0.0.1',
+    version='0.0.2',
     packages=['hy'],
     license='MIT',
     author='Joakim Ekberg',
