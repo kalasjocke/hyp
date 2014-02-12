@@ -1,7 +1,7 @@
 from schematics.models import Model
 from schematics.types import IntType
 
-from hy.adapters.schematics import SchematicsSerializerAdapter
+from hyp.adapters.schematics import SchematicsSerializerAdapter
 
 
 class Post(object):

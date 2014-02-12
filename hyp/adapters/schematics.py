@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from hy.adapters.base import SerializerAdapter
+from hyp.adapters.base import SerializerAdapter
 
 
 class SchematicsSerializerAdapter(SerializerAdapter):
