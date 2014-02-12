@@ -2,8 +2,8 @@ from distutils.core import setup
 
 setup(
     name='hy-py',
-    version='0.0.2',
-    packages=['hy'],
+    version='0.0.3',
+    packages=['hy', 'hy.adapters'],
     license='MIT',
     author='Joakim Ekberg',
     author_email='jocke.ekberg@gmail.com',
