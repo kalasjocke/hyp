@@ -26,3 +26,11 @@ def test_object_conversion(adapter):
 def test_dict_conversion(adapter):
     adapter = SchematicsSerializerAdapter(Simple)
     assert adapter.to_primitive({'id': 1})['id'] == 1
+
+
+def test_object_none_attribute(adapter):
+    post = Post()
+    post.id = None
+
+    assert adapter.to_primitive({'id': None})['id'] is None
+    assert adapter.to_primitive(post)['id'] is None
