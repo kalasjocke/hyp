@@ -1,3 +1,4 @@
+import pytest
 from schematics.models import Model
 from schematics.types import IntType
 
@@ -13,11 +14,15 @@ class Simple(Model):
     id = IntType()
 
 
-def test_object_conversion():
-    adapter = SchematicsSerializerAdapter(Simple)
+@pytest.fixture
+def adapter():
+    return SchematicsSerializerAdapter(Simple)
+
+
+def test_object_conversion(adapter):
     assert adapter.to_primitive(Post())['id'] == 1
 
 
-def test_dict_conversion():
+def test_dict_conversion(adapter):
     adapter = SchematicsSerializerAdapter(Simple)
     assert adapter.to_primitive({'id': 1})['id'] == 1
