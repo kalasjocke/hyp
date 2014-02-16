@@ -1,9 +1,4 @@
-from __future__ import absolute_import
-
-from hyp.adapters.base import SerializerAdapter
-
-
-class MarshmallowSerializerAdapter(SerializerAdapter):
+class MarshmallowSerializerAdapter(object):
     def __init__(self, serializer_class):
         self.serializer_class = serializer_class
 

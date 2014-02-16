@@ -1,12 +1,13 @@
 from schematics.models import Model
 from schematics.types import IntType, StringType
+from marshmallow import Serializer, fields
 
 from hyp.responder import Responder
 
 
-class CommentSerializer(Model):
-    id = IntType()
-    content = StringType()
+class CommentSerializer(Serializer):
+    id = fields.Integer()
+    content = fields.String()
 
 
 class PersonSerializer(Model):

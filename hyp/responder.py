@@ -2,13 +2,13 @@ import json
 
 from inflection import pluralize
 
-from hyp.adapters.schematics import SchematicsSerializerAdapter
+from hyp.adapters.base import adapter_for
 
 
 class Responder(object):
     def __init__(self):
         self.root = self.pluralized_type()
-        self.serializer = SchematicsSerializerAdapter(self.SERIALIZER)
+        self.adapter = adapter_for(self.SERIALIZER)(self.SERIALIZER)
 
     def build_meta(self, meta):
         if meta is None:
@@ -48,7 +48,7 @@ class Responder(object):
         rv = []
 
         for instance in instances:
-            resource = self.serializer.to_primitive(instance)
+            resource = self.adapter.to_primitive(instance)
 
             if links is not None:
                 resource_links = {}
