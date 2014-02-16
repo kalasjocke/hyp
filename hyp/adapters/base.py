@@ -3,14 +3,14 @@ from __future__ import absolute_import
 from schematics.models import Model as SchematicsSerializer
 from marshmallow import Serializer as MarshmallowSerializer
 
-from hyp.adapters.schematics import SchematicsSerializerAdapter
-from hyp.adapters.marshmallow import MarshmallowSerializerAdapter
+from hyp.adapters.schematics import Adapter as SchematicsAdapter
+from hyp.adapters.marshmallow import Adapter as MarshmallowAdapter
 
 
 def adapter_for(serializer):
     if isinstance(serializer(), SchematicsSerializer):
-        return SchematicsSerializerAdapter
+        return SchematicsAdapter
     elif isinstance(serializer(), MarshmallowSerializer):
-        return MarshmallowSerializerAdapter
+        return MarshmallowAdapter
     else:
         raise NotImplementedError()

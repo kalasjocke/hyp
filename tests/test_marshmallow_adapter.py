@@ -1,7 +1,7 @@
 import pytest
 from marshmallow import Serializer, fields
 
-from hyp.adapters.marshmallow import MarshmallowSerializerAdapter
+from hyp.adapters.marshmallow import Adapter as MarshmallowAdapter
 
 
 class Post(object):
@@ -15,7 +15,7 @@ class Simple(Serializer):
 
 @pytest.fixture
 def marshmallow_adapter():
-    return MarshmallowSerializerAdapter(Simple)
+    return MarshmallowAdapter(Simple)
 
 
 def test_object_conversion(marshmallow_adapter):

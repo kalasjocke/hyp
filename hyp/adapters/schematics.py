@@ -1,4 +1,4 @@
-class SchematicsSerializerAdapter(object):
+class Adapter(object):
     def __init__(self, serializer_class):
         self.model_class = serializer_class
 

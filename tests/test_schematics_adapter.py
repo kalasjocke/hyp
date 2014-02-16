@@ -2,7 +2,7 @@ import pytest
 from schematics.models import Model
 from schematics.types import IntType
 
-from hyp.adapters.schematics import SchematicsSerializerAdapter
+from hyp.adapters.schematics import Adapter as SchematicsAdapter
 
 
 class Post(object):
@@ -16,7 +16,7 @@ class Simple(Model):
 
 @pytest.fixture
 def adapter():
-    return SchematicsSerializerAdapter(Simple)
+    return SchematicsAdapter(Simple)
 
 
 def test_object_conversion(adapter):
@@ -24,7 +24,7 @@ def test_object_conversion(adapter):
 
 
 def test_dict_conversion(adapter):
-    adapter = SchematicsSerializerAdapter(Simple)
+    adapter = SchematicsAdapter(Simple)
     assert adapter.to_primitive({'id': 1})['id'] == 1
 
 

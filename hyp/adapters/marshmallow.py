@@ -1,4 +1,4 @@
-class MarshmallowSerializerAdapter(object):
+class Adapter(object):
     def __init__(self, serializer_class):
         self.serializer_class = serializer_class
 
