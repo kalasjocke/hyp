@@ -7,5 +7,5 @@ test: clean
 	coverage run --source hy -m py.test tests/ -s
 	coverage report -m
 
-dist:
+dist: clean
 	python setup.py sdist upload
