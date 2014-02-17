@@ -4,33 +4,31 @@ JSON-API responses in Python.
 
 About
 -----
-Hyp is a library implementing the _must_ parts of the [JSON-API](http://jsonapi.org) response specification. This means that you can use Hyp to serialize your models into responses that contain links and linked compound documents. It works really good in combination with some micro web framework of choice, preferably [Flask](http://flask.pocoo.org).
+Hyp is a library implementing the _must_ parts of the [JSON-API](http://jsonapi.org) response specification. This means that you can use Hyp to serialize your models into responses that contain links and linked compound documents. It works really good in combination with your micro web framework of choice, preferably [Flask](http://flask.pocoo.org).
 
-It is built on top of [Schematics](https://schematics.readthedocs.org/en/latest/) in the sense that Schematics is used for data serialization and that Hyp handles the rest. To add support for other data serialization libraries such as [Colander](http://docs.pylonsproject.org/projects/colander/en/latest/) should be trivial though.
+It has built in support for both [Schematics](https://schematics.readthedocs.org/) and [Marshmallow](http://marshmallow.readthedocs.org) in the sense that you can use any of them for serializing your models (or primitives) into JSON that Hyp creates responses from. To add support for more data serialization libraries such as [Colander](http://docs.pylonsproject.org/projects/colander/en/latest/) should be trivial though.
 
 Tutorial
 --------
-
 First let's define some serializers for your models:
 
 ```python
-from schematics.models import Model
-from schematics.types import IntType, StringType
+from marshmallow import Serializer, fields
 
 
-class CommentSerializer(Model):
-    id = IntType()
-    content = StringType()
+class CommentSerializer(Serializer):
+    id = fields.Integer()
+    content = fields.String()
 
 
-class PersonSerializer(Model):
-    id = IntType()
-    name = StringType()
+class PersonSerializer(Serializer):
+    id = fields.Integer()
+    name = fields.String()
 
 
-class PostSerializer(Model):
-    id = IntType()
-    title = StringType()
+class PostSerializer(Serializer):
+    id = fields.Integer()
+    title = fields.String()
 ```
 
 We can then create our own responders using the `hyp.Responders` class:
@@ -80,10 +78,9 @@ json = PostResponder().respond(post, linked={'comments': comments})
 
 ```
 
-The `json` variable will now contain some freshly squeezed json ready for sending back to the client:
+The `json` variable will now contain some freshly squeezed JSON ready for sending back to the client:
 
 ```json
-
 {
     "posts": [
         {
