@@ -49,7 +49,7 @@ class Responder(object):
         rv = []
 
         for instance in instances:
-            resource = self.adapter.to_primitive(instance)
+            resource = self.adapter(instance)
 
             if links is not None:
                 resource_links = {}

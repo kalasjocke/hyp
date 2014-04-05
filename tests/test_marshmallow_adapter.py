@@ -19,16 +19,16 @@ def marshmallow_adapter():
 
 
 def test_object_conversion(marshmallow_adapter):
-    assert marshmallow_adapter.to_primitive(Post())['id'] == 1
+    assert marshmallow_adapter(Post())['id'] == 1
 
 
 def test_dict_conversion(marshmallow_adapter):
-    assert marshmallow_adapter.to_primitive({'id': 1})['id'] == 1
+    assert marshmallow_adapter({'id': 1})['id'] == 1
 
 
 def test_object_none_attribute(marshmallow_adapter):
     post = Post()
     post.id = None
 
-    assert marshmallow_adapter.to_primitive({'id': None})['id'] is None
-    assert marshmallow_adapter.to_primitive(post)['id'] is None
+    assert marshmallow_adapter({'id': None})['id'] is None
+    assert marshmallow_adapter(post)['id'] is None
