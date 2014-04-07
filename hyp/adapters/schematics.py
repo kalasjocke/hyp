@@ -2,8 +2,8 @@ class Adapter(object):
     def __init__(self, serializer_class):
         self.model_class = serializer_class
 
-    def to_primitive(self, instance):
-        return self.instance_to_model(instance).to_primitive()
+    def __call__(self, instance):
+        return self.instance_to_model(instance).to_native()
 
     def instance_to_model(self, instance):
         model = self.model_class()
