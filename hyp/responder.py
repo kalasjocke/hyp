@@ -56,11 +56,11 @@ class Responder(object):
 
                 for link in links:
                     # TODO Should be able to pick from where to get the related instances
-                    related = getattr(instance, link)
+                    related = self.pick(instance, link)
                     if isinstance(related, list):
-                        resource_links[link] = [r.id for r in related]
+                        resource_links[link] = [self.pick(r, 'id') for r in related]
                     else:
-                        resource_links[link] = related.id
+                        resource_links[link] = self.pick(related, 'id')
 
                 resource['links'] = resource_links
 
@@ -88,3 +88,9 @@ class Responder(object):
 
     def pluralized_type(self):
         return pluralize(self.TYPE)
+
+    def pick(self, instance, key):
+        try:
+            return getattr(instance, key)
+        except AttributeError:
+            return instance[key]
