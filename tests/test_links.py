@@ -1,6 +1,7 @@
 import json
 
-from fixtures import PostResponder
+from hyp.responder import Responder
+from fixtures import PostResponder, PostSerializer, CommentResponder
 
 
 def test_one_to_many():
@@ -51,6 +52,40 @@ def test_one_to_one():
             'posts.author': {
                 'href': 'http://example.com/people/{posts.author}',
                 'type': 'people',
+            }
+        }
+    }
+
+
+def test_without_href():
+    class MyPostResponder(Responder):
+        TYPE = 'post'
+        SERIALIZER = PostSerializer
+        LINKS = {
+            'comments': {'responder': CommentResponder()},
+        }
+
+    comments = [
+        {'id': 1, 'content': 'My comment'},
+        {'id': 2, 'content': 'Another comment'},
+    ]
+    post = {'id': 1, 'title': 'My title', 'comments': comments}
+
+    data = MyPostResponder().respond(post, links=['comments'])
+
+    assert json.loads(data) == {
+        'posts': [
+            {
+                'id': 1,
+                'title': 'My title',
+                'links': {
+                    'comments': [1, 2],
+                }
+            },
+        ],
+        'links': {
+            'posts.comments': {
+                'type': 'comments',
             }
         }
     }

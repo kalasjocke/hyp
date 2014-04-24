@@ -24,11 +24,14 @@ class Responder(object):
         rv = {}
 
         for link in links:
+            properties = self.LINKS[link]
             key = "%s.%s" % (self.pluralized_type(), link)
             value = {
-                'type': self.LINKS[link]['responder'].pluralized_type(),
-                'href': self.LINKS[link]['href'],
+                'type': properties['responder'].pluralized_type(),
             }
+            if 'href' in properties:
+                value['href'] = properties['href']
+
             rv[key] = value
 
         return rv
