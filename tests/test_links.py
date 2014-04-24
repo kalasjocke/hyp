@@ -3,11 +3,12 @@ import json
 from fixtures import PostResponder
 
 
-def test_one_to_many(post, comment_factory):
-    post.comments = [
-        comment_factory(id=1, content='My comment'),
-        comment_factory(id=2, content='Another comment'),
+def test_one_to_many():
+    comments = [
+        {'id': 1, 'content': 'My comment'},
+        {'id': 2, 'content': 'Another comment'},
     ]
+    post = {'id': 1, 'title': 'My title', 'comments': comments}
 
     data = PostResponder().respond(post, links=['comments'])
 
@@ -30,8 +31,9 @@ def test_one_to_many(post, comment_factory):
     }
 
 
-def test_one_to_one(post, person):
-    post.author = person
+def test_one_to_one():
+    author = {'id': 1}
+    post = {'id': 1, 'title': 'My title', 'author': author}
 
     data = PostResponder().respond(post, links=['author'])
 

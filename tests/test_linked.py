@@ -3,13 +3,12 @@ import json
 from fixtures import PostResponder
 
 
-def test_linked(post, comment_factory):
+def test_linked():
     comments = [
-        comment_factory(id=1, content='My comment'),
-        comment_factory(id=2, content='Another comment'),
+        {'id': 1, 'content': 'My comment'},
+        {'id': 2, 'content': 'Another comment'},
     ]
-
-    post.comments = comments
+    post = {'id': 1, 'title': 'My title', 'comments': comments}
 
     data = PostResponder().respond(post, linked={'comments': comments})
 
