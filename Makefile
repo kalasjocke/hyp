@@ -4,7 +4,7 @@ clean-pyc:
 clean: clean-pyc
 
 test: clean
-	coverage run --source hy -m py.test tests/ -s
+	coverage run --source hyp -m py.test tests/ -s
 	coverage report -m
 
 dist: clean
