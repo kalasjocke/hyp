@@ -40,27 +40,25 @@ class Responder(object):
         return rv
 
     def build_resources(self, instances, links=None):
-        rv = []
+        return [self.build_resource(instance, links) for instance in instances]
 
-        for instance in instances:
-            resource = self.adapter(instance)
+    def build_resource(self, instance, links):
+        resource = self.adapter(instance)
+        if links is not None:
+            resource['links'] = self.build_resource_links(instance, links)
+        return resource
 
-            if links is not None:
-                resource_links = {}
+    def build_resource_links(self, instance, links):
+        resource_links = {}
 
-                for link in links:
-                    # TODO Should be able to pick from where to get the related instances
-                    related = self.pick(instance, link)
-                    if isinstance(related, list):
-                        resource_links[link] = [self.pick(r, 'id') for r in related]
-                    else:
-                        resource_links[link] = self.pick(related, 'id')
-
-                resource['links'] = resource_links
-
-            rv.append(resource)
-
-        return rv
+        for link in links:
+            # TODO Should be able to pick from where to get the related instances
+            related = self.pick(instance, link)
+            if isinstance(related, list):
+                resource_links[link] = [self.pick(r, 'id') for r in related]
+            else:
+                resource_links[link] = self.pick(related, 'id')
+        return resource_links
 
     def respond(self, instances, meta=None, links=None, linked=None):
         if not isinstance(instances, list):
