@@ -12,15 +12,9 @@ class Responder(object):
         self.adapter = adapter_for(self.SERIALIZER)(self.SERIALIZER)
 
     def build_meta(self, meta):
-        if meta is None:
-            return
-
         return meta
 
     def build_links(self, links):
-        if links is None:
-            return
-
         rv = {}
 
         for link in links:
@@ -37,9 +31,6 @@ class Responder(object):
         return rv
 
     def build_linked(self, linked):
-        if linked is None:
-            return
-
         rv = {}
 
         for key, instances in linked.iteritems():
@@ -80,12 +71,13 @@ class Responder(object):
 
         document = {}
 
-        document['meta'] = self.build_meta(meta)
-        document['links'] = self.build_links(links)
-        document['linked'] = self.build_linked(linked)
+        if meta is not None:
+            document['meta'] = self.build_meta(meta)
+        if links is not None:
+            document['links'] = self.build_links(links)
+        if linked is not None:
+            document['linked'] = self.build_linked(linked)
         document[self.root] = self.build_resources(instances, links)
-
-        [document.pop(key) for key in document.keys() if document[key] is None]
 
         return json.dumps(document)
 
