@@ -74,7 +74,7 @@ post = {
     ]
 }
 
-json = PostResponder().respond(post, linked={'comments': comments})
+json = PostResponder().respond(post, linked={'comments': post['comments']})
 
 ```
 
