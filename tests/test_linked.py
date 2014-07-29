@@ -1,5 +1,3 @@
-import json
-
 from fixtures import PostResponder
 
 
@@ -10,9 +8,9 @@ def test_linked():
     ]
     post = {'id': 1, 'title': 'My title', 'comments': comments}
 
-    data = PostResponder().respond(post, linked={'comments': comments})
+    data = PostResponder.build(post, linked={'comments': comments})
 
-    assert json.loads(data) == {
+    assert data == {
         'posts': [
             {
                 'id': 1,

@@ -1,3 +1,6 @@
+env
+.idea
+
 *.py[cod]
 
 # C extensions
