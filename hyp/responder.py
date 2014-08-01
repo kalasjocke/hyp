@@ -60,7 +60,22 @@ class Responder(object):
                 resource_links[link] = self.pick(related, 'id')
         return resource_links
 
-    def respond(self, instances, meta=None, links=None, linked=None):
+    @classmethod
+    def build(cls, *args, **kwargs):
+
+        return cls().get(*args, **kwargs)
+
+    @classmethod
+    def dumps(cls, *args, **kwargs):
+
+        return cls().respond(*args, **kwargs)
+
+    def respond(self, *args, **kwargs):
+        document = self.get(*args, **kwargs)
+
+        return json.dumps(document)
+
+    def get(self, instances, meta=None, links=None, linked=None):
         if not isinstance(instances, list):
             instances = [instances]
 
@@ -77,7 +92,7 @@ class Responder(object):
             document['linked'] = self.build_linked(linked)
         document[self.root] = self.build_resources(instances, links)
 
-        return json.dumps(document)
+        return document
 
     def pluralized_type(self):
         return pluralize(self.TYPE)

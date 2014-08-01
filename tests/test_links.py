@@ -1,5 +1,3 @@
-import json
-
 from hyp.responder import Responder
 from fixtures import PostResponder, PostSerializer, CommentResponder
 
@@ -11,9 +9,9 @@ def test_one_to_many():
     ]
     post = {'id': 1, 'title': 'My title', 'comments': comments}
 
-    data = PostResponder().respond(post, links=['comments'])
+    data = PostResponder.build(post, links=['comments'])
 
-    assert json.loads(data) == {
+    assert data == {
         'posts': [
             {
                 'id': 1,
@@ -36,9 +34,9 @@ def test_one_to_one():
     author = {'id': 1}
     post = {'id': 1, 'title': 'My title', 'author': author}
 
-    data = PostResponder().respond(post, links=['author'])
+    data = PostResponder.build(post, links=['author'])
 
-    assert json.loads(data) == {
+    assert data == {
         'posts': [
             {
                 'id': 1,
@@ -71,9 +69,9 @@ def test_without_href():
     ]
     post = {'id': 1, 'title': 'My title', 'comments': comments}
 
-    data = MyPostResponder().respond(post, links=['comments'])
+    data = MyPostResponder.build(post, links=['comments'])
 
-    assert json.loads(data) == {
+    assert data == {
         'posts': [
             {
                 'id': 1,
