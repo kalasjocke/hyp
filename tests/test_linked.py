@@ -11,15 +11,13 @@ def test_linked():
     data = PostResponder.build(post, linked={'comments': comments})
 
     assert data == {
-        'posts': [
-            {
-                'id': 1,
-                'title': 'My title',
-                'links': {
-                    'comments': [1, 2],
-                }
-            },
-        ],
+        'posts': {
+            'id': 1,
+            'title': 'My title',
+            'links': {
+                'comments': [1, 2],
+            }
+        },
         'links': {
             'posts.comments': {
                 'href': 'http://example.com/comments/{posts.comments}',

@@ -39,8 +39,13 @@ class Responder(object):
 
         return rv
 
-    def build_resources(self, instances, links=None):
-        return [self.build_resource(instance, links) for instance in instances]
+    def build_resources(self, instance_or_instances, links=None):
+        builder = lambda i: self.build_resource(i, links)
+
+        if isinstance(instance_or_instances, list):
+            return map(builder, instance_or_instances)
+        else:
+            return builder(instance_or_instances)
 
     def build_resource(self, instance, links):
         resource = self.adapter(instance)
@@ -62,23 +67,17 @@ class Responder(object):
 
     @classmethod
     def build(cls, *args, **kwargs):
-
-        return cls().get(*args, **kwargs)
+        return cls()._respond(*args, **kwargs)
 
     @classmethod
     def dumps(cls, *args, **kwargs):
 
         return cls().respond(*args, **kwargs)
 
-    def respond(self, *args, **kwargs):
-        document = self.get(*args, **kwargs)
+    def respond(cls, *args, **kwargs):
+        return json.dumps(cls()._respond(*args, **kwargs))
 
-        return json.dumps(document)
-
-    def get(self, instances, meta=None, links=None, linked=None):
-        if not isinstance(instances, list):
-            instances = [instances]
-
+    def _respond(self, instance_or_instances, meta=None, links=None, linked=None):
         if linked is not None:
             links = linked.keys()
 
@@ -90,7 +89,7 @@ class Responder(object):
             document['links'] = self.build_links(links)
         if linked is not None:
             document['linked'] = self.build_linked(linked)
-        document[self.root] = self.build_resources(instances, links)
+        document[self.root] = self.build_resources(instance_or_instances, links)
 
         return document
 

@@ -1,4 +1,5 @@
 from hyp.responder import Responder
+
 from fixtures import PostResponder, PostSerializer, CommentResponder
 
 
@@ -12,15 +13,13 @@ def test_one_to_many():
     data = PostResponder.build(post, links=['comments'])
 
     assert data == {
-        'posts': [
-            {
-                'id': 1,
-                'title': 'My title',
-                'links': {
-                    'comments': [1, 2],
-                }
-            },
-        ],
+        'posts': {
+            'id': 1,
+            'title': 'My title',
+            'links': {
+                'comments': [1, 2],
+            }
+        },
         'links': {
             'posts.comments': {
                 'href': 'http://example.com/comments/{posts.comments}',
@@ -37,15 +36,13 @@ def test_one_to_one():
     data = PostResponder.build(post, links=['author'])
 
     assert data == {
-        'posts': [
-            {
-                'id': 1,
-                'title': 'My title',
-                'links': {
-                    'author': 1,
-                }
-            },
-        ],
+        'posts': {
+            'id': 1,
+            'title': 'My title',
+            'links': {
+                'author': 1,
+            }
+        },
         'links': {
             'posts.author': {
                 'href': 'http://example.com/people/{posts.author}',
@@ -72,15 +69,13 @@ def test_without_href():
     data = MyPostResponder.build(post, links=['comments'])
 
     assert data == {
-        'posts': [
-            {
-                'id': 1,
-                'title': 'My title',
-                'links': {
-                    'comments': [1, 2],
-                }
-            },
-        ],
+        'posts': {
+            'id': 1,
+            'title': 'My title',
+            'links': {
+                'comments': [1, 2],
+            }
+        },
         'links': {
             'posts.comments': {
                 'type': 'comments',
