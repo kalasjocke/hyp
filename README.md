@@ -74,7 +74,7 @@ post = {
     ]
 }
 
-json = PostResponder.dumps(post, linked={'comments': post['comments']})
+json = PostResponder.respond(post, linked={'comments': post['comments']})
 
 ```
 
@@ -112,10 +112,8 @@ The `json` variable will now contain some freshly squeezed JSON ready for sendin
 }
 ```
 
-If you'd like to get have dict returned instead of json, 
-for example if you want to use flask's [jsonify](http://flask.pocoo.org/docs/api/#flask.json.jsonify), 
-then you can use the `build` method instead like so:
- 
+If you'd like to get have dict returned instead of json, for example if you want to use flask's [jsonify](http://flask.pocoo.org/docs/api/#flask.json.jsonify), then you can use the `build` method instead like so:
+
 ```python
 post = {
     'id': 1,

@@ -70,10 +70,6 @@ class Responder(object):
         return cls()._respond(*args, **kwargs)
 
     @classmethod
-    def dumps(cls, *args, **kwargs):
-
-        return cls().respond(*args, **kwargs)
-
     def respond(cls, *args, **kwargs):
         return json.dumps(cls()._respond(*args, **kwargs))
 
