@@ -9,7 +9,6 @@ class TestBuild(object):
 
         assert data == {'posts': {'id': 1, 'title': 'My title'}}
 
-
     def test_multiple(self):
         data = PostResponder.build([
             {'id': 1, 'title': 'A title'},
