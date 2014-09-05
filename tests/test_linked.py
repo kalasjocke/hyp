@@ -74,6 +74,9 @@ class TestLinked(object):
         })
 
         assert len(response['linked']['people']) == 2
+        ids = [person['id'] for person in response['linked']['people']]
+        assert 1 in ids
+        assert 2 in ids
 
     def test_custom_linked_key(self):
         class CustomPostResponder(Responder):
