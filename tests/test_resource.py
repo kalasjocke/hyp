@@ -5,17 +5,17 @@ from fixtures import PostResponder
 
 class TestBuild(object):
     def test_single(self):
-        data = PostResponder.build({'id': 1, 'title': 'My title'})
+        response = PostResponder.build({'id': 1, 'title': 'My title'})
 
-        assert data == {'posts': {'id': 1, 'title': 'My title'}}
+        assert response == {'posts': {'id': 1, 'title': 'My title'}}
 
     def test_multiple(self):
-        data = PostResponder.build([
+        response = PostResponder.build([
             {'id': 1, 'title': 'A title'},
             {'id': 2, 'title': 'Another title'},
         ])
 
-        assert data == {
+        assert response == {
             'posts': [
                 {'id': 1, 'title': 'A title'},
                 {'id': 2, 'title': 'Another title'},
@@ -25,19 +25,19 @@ class TestBuild(object):
 
 class TestRespond(object):
     def test_single(self):
-        data = PostResponder.respond(
+        response = PostResponder.respond(
             {'id': 1, 'title': 'A title'}
         )
 
-        assert json.loads(data) == {
+        assert json.loads(response) == {
             'posts': {'id': 1, 'title': 'A title'}
         }
 
 
 def test_meta():
-    data = PostResponder.build(
+    response = PostResponder.build(
         {'id': 1, 'title': 'Yeah'},
         meta={'key': 'value'},
     )
 
-    assert data['meta']['key'] == 'value'
+    assert response['meta']['key'] == 'value'
