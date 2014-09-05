@@ -38,25 +38,25 @@ from hyp.responder import Responder
 
 
 class CommentResponder(Responder):
-    TYPE = 'comment'
+    TYPE = 'comments'
     SERIALIZER = CommentSerializer
 
 
 class PersonResponder(Responder):
-    TYPE = 'person'
+    TYPE = 'people'
     SERIALIZER = PersonSerializer
 
 
 class PostResponder(Responder):
-    TYPE = 'post'
+    TYPE = 'posts'
     SERIALIZER = PostSerializer
     LINKS = {
         'comments': {
-            'responder': CommentResponder(),
+            'responder': CommentResponder,
             'href': 'http://example.com/comments/{posts.comments}',
         },
         'author': {
-            'responder': PersonResponder(),
+            'responder': PersonResponder,
             'href': 'http://example.com/people/{posts.author}',
         },
     }
@@ -112,7 +112,7 @@ The `json` variable will now contain some freshly squeezed JSON ready for sendin
 }
 ```
 
-If you'd like to get have dict returned instead of json, for example if you want to use flask's [jsonify](http://flask.pocoo.org/docs/api/#flask.json.jsonify), then you can use the `build` method instead like so:
+If you'd like to get have dict returned instead of json, for example if you want to use flask's [jsonify](http://flask.pocoo.org/docs/api/#flask.json.jsonify), then you can use the `build` method instead:
 
 ```python
 post = {
