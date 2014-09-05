@@ -9,8 +9,6 @@ class Responder(object):
     LINKS = None
 
     def __init__(self):
-        # TODO Add a way to override the pluralized type
-        self.root = self.pluralized_type()
         self.adapter = adapter_for(self.SERIALIZER)(self.SERIALIZER)
 
     def build_meta(self, meta):
