@@ -1,3 +1,2 @@
 schematics==0.9-4
-inflection==0.2.0
 marshmallow==0.5.2

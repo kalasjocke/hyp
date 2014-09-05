@@ -1,7 +1,5 @@
 import json
 
-from inflection import pluralize
-
 from hyp.adapters.base import adapter_for
 
 
@@ -19,9 +17,9 @@ class Responder(object):
 
         for link in links:
             properties = self.LINKS[link]
-            key = "%s.%s" % (self.pluralized_type(), link)
+            key = "%s.%s" % (self.TYPE, link)
             value = {
-                'type': properties['responder'].pluralized_type(),
+                'type': properties['responder'].TYPE,
             }
             if 'href' in properties:
                 value['href'] = properties['href']

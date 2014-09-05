@@ -21,17 +21,17 @@ class PostSerializer(Model):
 
 
 class CommentResponder(Responder):
-    TYPE = 'comment'
+    TYPE = 'comments'
     SERIALIZER = CommentSerializer
 
 
 class PersonResponder(Responder):
-    TYPE = 'person'
+    TYPE = 'people'
     SERIALIZER = PersonSerializer
 
 
 class PostResponder(Responder):
-    TYPE = 'post'
+    TYPE = 'posts'
     SERIALIZER = PostSerializer
     LINKS = {
         'comments': {

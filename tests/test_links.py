@@ -54,7 +54,7 @@ def test_one_to_one():
 
 def test_without_href():
     class MyPostResponder(Responder):
-        TYPE = 'post'
+        TYPE = 'posts'
         SERIALIZER = PostSerializer
         LINKS = {
             'comments': {'responder': CommentResponder()},
