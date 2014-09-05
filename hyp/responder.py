@@ -11,10 +11,10 @@ class Responder(object):
     def __init__(self):
         self.adapter = adapter_for(self.SERIALIZER)(self.SERIALIZER)
 
-    def build_meta(self, meta):
+    def build_root_meta(self, meta):
         return meta
 
-    def build_links(self, links):
+    def build_root_links(self, links):
         rv = {}
 
         for link in links:
@@ -30,24 +30,24 @@ class Responder(object):
 
         return rv
 
-    def build_linked(self, linked):
+    def build_root_linked(self, linked):
         rv = {}
 
         for key, instances in linked.iteritems():
-            responder = self.LINKS[key]['responder']
-            rv[key] = responder.build_resources(instances)
+            responder = self.LINKS[key]['responder']()
+            rv[responder.TYPE] = [responder.build_resource(instance) for instance in instances]
 
         return rv
 
     def build_resources(self, instance_or_instances, links=None):
-        builder = lambda i: self.build_resource(i, links)
+        builder = lambda instance: self.build_resource(instance, links)
 
         if isinstance(instance_or_instances, list):
             return map(builder, instance_or_instances)
         else:
             return builder(instance_or_instances)
 
-    def build_resource(self, instance, links):
+    def build_resource(self, instance, links=None):
         resource = self.adapter(instance)
         if links is not None:
             resource['links'] = self.build_resource_links(instance, links)
@@ -57,13 +57,22 @@ class Responder(object):
         resource_links = {}
 
         for link in links:
-            # TODO Should be able to pick from where to get the related instances
-            related = self.pick(instance, link)
-            if isinstance(related, list):
-                resource_links[link] = [self.pick(r, 'id') for r in related]
+            properties = self.LINKS[link]
+            key = properties.get('key', link)
+            instance_or_instances = self.pick(instance, key)
+            builder = lambda instance: self.pick(instance, 'id')
+            if isinstance(instance_or_instances, list):
+                resource_links[link] = map(builder, instance_or_instances)
             else:
-                resource_links[link] = self.pick(related, 'id')
+                resource_links[link] = builder(instance_or_instances)
+
         return resource_links
+
+    def links(self, links, linked):
+        if linked is not None:
+            links = linked.keys()
+
+        return links
 
     @classmethod
     def build(cls, *args, **kwargs):
@@ -74,23 +83,23 @@ class Responder(object):
         return json.dumps(cls()._respond(*args, **kwargs))
 
     def _respond(self, instance_or_instances, meta=None, links=None, linked=None):
-        if linked is not None:
-            links = linked.keys()
+        links = self.links(links, linked)
 
         document = {}
 
         if meta is not None:
-            document['meta'] = self.build_meta(meta)
+            document['meta'] = self.build_root_meta(meta)
+
         if links is not None:
-            document['links'] = self.build_links(links)
+            document['links'] = self.build_root_links(links)
+
         if linked is not None:
-            document['linked'] = self.build_linked(linked)
-        document[self.root] = self.build_resources(instance_or_instances, links)
+            document['linked'] = self.build_root_linked(linked)
+
+        document[self.TYPE] = self.build_resources(
+            instance_or_instances, links)
 
         return document
-
-    def pluralized_type(self):
-        return pluralize(self.TYPE)
 
     def pick(self, instance, key):
         try:

@@ -35,11 +35,11 @@ class PostResponder(Responder):
     SERIALIZER = PostSerializer
     LINKS = {
         'comments': {
-            'responder': CommentResponder(),
+            'responder': CommentResponder,
             'href': 'http://example.com/comments/{posts.comments}',
         },
         'author': {
-            'responder': PersonResponder(),
+            'responder': PersonResponder,
             'href': 'http://example.com/people/{posts.author}',
         },
     }

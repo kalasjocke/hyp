@@ -10,9 +10,9 @@ def test_one_to_many():
     ]
     post = {'id': 1, 'title': 'My title', 'comments': comments}
 
-    data = PostResponder.build(post, links=['comments'])
+    response = PostResponder.build(post, links=['comments'])
 
-    assert data == {
+    assert response == {
         'posts': {
             'id': 1,
             'title': 'My title',
@@ -33,9 +33,9 @@ def test_one_to_one():
     author = {'id': 1}
     post = {'id': 1, 'title': 'My title', 'author': author}
 
-    data = PostResponder.build(post, links=['author'])
+    response = PostResponder.build(post, links=['author'])
 
-    assert data == {
+    assert response == {
         'posts': {
             'id': 1,
             'title': 'My title',
@@ -57,7 +57,7 @@ def test_without_href():
         TYPE = 'posts'
         SERIALIZER = PostSerializer
         LINKS = {
-            'comments': {'responder': CommentResponder()},
+            'comments': {'responder': CommentResponder},
         }
 
     comments = [
@@ -66,9 +66,9 @@ def test_without_href():
     ]
     post = {'id': 1, 'title': 'My title', 'comments': comments}
 
-    data = MyPostResponder.build(post, links=['comments'])
+    response = MyPostResponder.build(post, links=['comments'])
 
-    assert data == {
+    assert response == {
         'posts': {
             'id': 1,
             'title': 'My title',
