@@ -4,6 +4,10 @@ from hyp.adapters.base import adapter_for
 
 
 class Responder(object):
+    TYPE = None
+    SERIALIZER = None
+    LINKS = None
+
     def __init__(self):
         # TODO Add a way to override the pluralized type
         self.root = self.pluralized_type()
