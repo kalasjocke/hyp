@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='hyp',
-    version='1.0.0',
+    version='0.5.0',
     packages=['hyp', 'hyp.adapters'],
     license='MIT',
     author='Joakim Ekberg',
