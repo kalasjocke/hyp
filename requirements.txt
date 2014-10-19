@@ -1,2 +1,2 @@
 schematics==0.9-4
-marshmallow==0.5.2
+marshmallow>=1.0.0-a

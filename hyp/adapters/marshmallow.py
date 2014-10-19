@@ -1,6 +1,8 @@
 class Adapter(object):
     def __init__(self, serializer_class):
-        self.serializer_class = serializer_class
+        self.schema_class = serializer_class
+        self.schema = self.schema_class()
 
     def __call__(self, instance):
-        return self.serializer_class(instance).data
+        result = self.schema.dump(instance)
+        return result.data
