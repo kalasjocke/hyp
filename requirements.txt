@@ -1,2 +1,3 @@
-schematics==0.9-4
+six>=1.8.0
+schematics>=1.0
 marshmallow>=1.0.0-a
