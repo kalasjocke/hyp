@@ -13,20 +13,20 @@ Tutorial
 First let's define some serializers for your models:
 
 ```python
-from marshmallow import Serializer, fields
+from marshmallow import Schema, fields
 
 
-class CommentSerializer(Serializer):
+class CommentSchema(Schema):
     id = fields.Integer()
     content = fields.String()
 
 
-class PersonSerializer(Serializer):
+class PersonSchema(Schema):
     id = fields.Integer()
     name = fields.String()
 
 
-class PostSerializer(Serializer):
+class PostSchema(Schema):
     id = fields.Integer()
     title = fields.String()
 ```
@@ -39,17 +39,17 @@ from hyp.responder import Responder
 
 class CommentResponder(Responder):
     TYPE = 'comments'
-    SERIALIZER = CommentSerializer
+    SERIALIZER = CommentSchema
 
 
 class PersonResponder(Responder):
     TYPE = 'people'
-    SERIALIZER = PersonSerializer
+    SERIALIZER = PersonSchema
 
 
 class PostResponder(Responder):
     TYPE = 'posts'
-    SERIALIZER = PostSerializer
+    SERIALIZER = PostSchema
     LINKS = {
         'comments': {
             'responder': CommentResponder,
