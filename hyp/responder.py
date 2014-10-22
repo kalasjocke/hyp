@@ -1,5 +1,7 @@
 import json
 
+from six import iteritems
+
 from hyp.adapters.base import adapter_for
 
 
@@ -62,7 +64,7 @@ class Responder(object):
     def build_root_linked(self, linked):
         rv = {}
 
-        for key, instances in linked.iteritems():
+        for key, instances in iteritems(linked):
             link = self.LINKS[key]
             responder = link['responder']()
 
@@ -107,7 +109,7 @@ class Responder(object):
 
     def apply_to_object_or_list(self, func, object_or_list):
         if isinstance(object_or_list, list):
-            return map(func, object_or_list)
+            return list(map(func, object_or_list))
         else:
             return func(object_or_list)
 
