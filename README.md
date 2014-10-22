@@ -6,7 +6,9 @@ About
 -----
 Hyp is a library implementing the _must_ parts of the [JSON-API](http://jsonapi.org) response specification. This means that you can use Hyp to serialize your models into responses that contain links and linked compound documents. It works really good in combination with your micro web framework of choice, preferably [Flask](http://flask.pocoo.org).
 
-It has built in support for both [Schematics](https://schematics.readthedocs.org/) and [Marshmallow](http://marshmallow.readthedocs.org) in the sense that you can use any of them for serializing your models (or primitives) into JSON that Hyp creates responses from. To add support for more data serialization libraries such as [Colander](http://docs.pylonsproject.org/projects/colander/en/latest/) should be trivial though.
+It has built in support for both [Schematics](https://schematics.readthedocs.org/) and [Marshmallow](http://marshmallow.readthedocs.org) in the sense that you can use any of them for serializing your models (or primitives) into JSON that Hyp creates responses from. To add support for more data serialization libraries such as [Colander](http://docs.pylonsproject.org/projects/colander/en/latest/) should be trivial.
+
+Depending on which serialization library that you would like to use make sure to add it to your apps requirements.
 
 Tutorial
 --------
