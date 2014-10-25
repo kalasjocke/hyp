@@ -2,8 +2,6 @@ import json
 
 from six import iteritems
 
-from hyp.adapters.base import adapter_for
-
 
 class Responder(object):
     TYPE = None
