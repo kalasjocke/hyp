@@ -1,11 +1,13 @@
 from schematics.models import Model
 from schematics.types import IntType, StringType
-from marshmallow import Serializer, fields
+from marshmallow import Schema, fields
 
 from hyp.responder import Responder
+from hyp.marshmallow import Responder as MarshmallowResponder
+from hyp.schematics import Responder as SchematicsResponder
 
 
-class CommentSerializer(Serializer):
+class CommentSerializer(Schema):
     id = fields.Integer()
     content = fields.String()
 
@@ -20,17 +22,17 @@ class PostSerializer(Model):
     title = StringType()
 
 
-class CommentResponder(Responder):
+class CommentResponder(MarshmallowResponder):
     TYPE = 'comments'
     SERIALIZER = CommentSerializer
 
 
-class PersonResponder(Responder):
+class PersonResponder(SchematicsResponder):
     TYPE = 'people'
     SERIALIZER = PersonSerializer
 
 
-class PostResponder(Responder):
+class PostResponder(SchematicsResponder):
     TYPE = 'posts'
     SERIALIZER = PostSerializer
     LINKS = {

@@ -1,7 +1,7 @@
 import pytest
-from marshmallow import Serializer, fields
+from marshmallow import Schema, fields
 
-from hyp.adapters.marshmallow import Adapter as MarshmallowAdapter
+from hyp.marshmallow import Adapter as MarshmallowAdapter
 
 
 class Post(object):
@@ -9,7 +9,7 @@ class Post(object):
         self.id = 1
 
 
-class Simple(Serializer):
+class Simple(Schema):
     id = fields.Integer(default=None)
 
 
