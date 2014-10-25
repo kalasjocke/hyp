@@ -8,7 +8,7 @@ Hyp is a library implementing the _must_ parts of the [JSON-API](http://jsonapi.
 
 It has built in support for both [Schematics](https://schematics.readthedocs.org/) and [Marshmallow](http://marshmallow.readthedocs.org) in the sense that you can use any of them for serializing your models (or primitives) into JSON that Hyp creates responses from. To add support for more data serialization libraries such as [Colander](http://docs.pylonsproject.org/projects/colander/en/latest/) should be trivial.
 
-Depending on which serialization library that you would like to use make sure to add it to your apps requirements.
+Depending on which serialization library that you would like to use make sure to add it to your app's requirements.
 
 Tutorial
 --------
@@ -36,7 +36,7 @@ class PostSchema(Schema):
 We can then create our own responders using the `hyp.Responders` class:
 
 ```python
-from hyp.responder import Responder
+from hyp.marshmallow import Responder
 
 
 class CommentResponder(Responder):

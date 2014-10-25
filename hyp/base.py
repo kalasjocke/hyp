@@ -12,7 +12,8 @@ class BaseResponder(object):
     ADAPTER = None
 
     def __init__(self):
-        # TODO:  Raise error if ADAPTER not defined
+        if not self.ADAPTER:
+            raise NotImplementedError('Responder must define ADAPTER class variable')
         self.adapter = self.ADAPTER(self.SERIALIZER)
 
     @classmethod
@@ -129,4 +130,3 @@ class BaseAdapter(object):
     def __call__(self, instance):
         """Serialize ``instance`` to a dictionary of Python primitives."""
         raise NotImplementedError('Adapter class must define __call__')
-
