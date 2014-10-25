@@ -1,4 +1,4 @@
-from hyp.responder import Responder
+from hyp.schematics import Responder as SchematicsResponder
 
 from fixtures import PostResponder, PostSerializer, CommentResponder
 
@@ -103,7 +103,7 @@ class TestLinksWithMissingValues(object):
 
 class TestHref(object):
     def test_without_href(self):
-        class MyPostResponder(Responder):
+        class MyPostResponder(SchematicsResponder):
             TYPE = 'posts'
             SERIALIZER = PostSerializer
             LINKS = {

@@ -2,7 +2,6 @@ from schematics.models import Model
 from schematics.types import IntType, StringType
 from marshmallow import Schema, fields
 
-from hyp.responder import Responder
 from hyp.marshmallow import Responder as MarshmallowResponder
 from hyp.schematics import Responder as SchematicsResponder
 
