@@ -1,4 +1,6 @@
-class Adapter(object):
+from hyp.base import BaseAdapter, BaseResponder
+
+class Adapter(BaseAdapter):
     def __init__(self, serializer_class):
         self.model_class = serializer_class
 
@@ -18,3 +20,8 @@ class Adapter(object):
             return getattr(instance, key)
         else:
             return instance[key]
+
+
+class Responder(BaseResponder):
+    """Responder that uses a schematics :class:`Model` for serialization."""
+    ADAPTER = Adapter

@@ -1,17 +1,20 @@
+"""Base classes for the ``Responders`` and ``Adapters``.
+"""
 import json
 
 from six import iteritems
 
-from hyp.adapters.base import adapter_for
 
-
-class Responder(object):
+class BaseResponder(object):
     TYPE = None
     SERIALIZER = None
     LINKS = None
+    ADAPTER = None
 
     def __init__(self):
-        self.adapter = adapter_for(self.SERIALIZER)(self.SERIALIZER)
+        if not self.ADAPTER:
+            raise NotImplementedError('Responder must define ADAPTER class variable')
+        self.adapter = self.ADAPTER(self.SERIALIZER)
 
     @classmethod
     def build(cls, *args, **kwargs):
@@ -118,3 +121,12 @@ class Responder(object):
             return getattr(instance, key)
         except AttributeError:
             return instance[key]
+
+
+class BaseAdapter(object):
+    """Base class from which all :class:`Adapter` classes inherit.
+    """
+
+    def __call__(self, instance):
+        """Serialize ``instance`` to a dictionary of Python primitives."""
+        raise NotImplementedError('Adapter class must define __call__')

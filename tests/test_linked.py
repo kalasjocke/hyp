@@ -1,4 +1,4 @@
-from hyp.responder import Responder
+from hyp.schematics import Responder as SchematicsResponder
 
 from fixtures import (
     PostResponder,
@@ -51,7 +51,7 @@ class TestLinked(object):
         }
 
     def test_multiple_same_type(self):
-        class MultipleAuthorsResponder(Responder):
+        class MultipleAuthorsResponder(SchematicsResponder):
             TYPE = 'posts'
             SERIALIZER = PostSerializer
             LINKS = {
@@ -79,7 +79,7 @@ class TestLinked(object):
         assert 2 in ids
 
     def test_custom_linked_key(self):
-        class CustomPostResponder(Responder):
+        class CustomPostResponder(SchematicsResponder):
             TYPE = 'posts'
             SERIALIZER = PostSerializer
             LINKS = {

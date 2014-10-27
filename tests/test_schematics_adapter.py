@@ -2,7 +2,7 @@ import pytest
 from schematics.models import Model
 from schematics.types import IntType
 
-from hyp.adapters.schematics import Adapter as SchematicsAdapter
+from hyp.schematics import Adapter as SchematicsAdapter
 
 
 class Post(object):
