@@ -1,4 +1,4 @@
-Hyp
+Hyp [![Build Status](https://travis-ci.org/kalasjocke/hyp.svg)](https://travis-ci.org/kalasjocke/hyp)
 ===
 JSON-API responses in Python.
 
